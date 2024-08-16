@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestPLC", "TestPLC.csproj", "{B811BA7F-D334-44E0-9935-3BD55C53A908}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MitsubishiFx5uTcpComm", "..\Fx5uTcpComm\MitsubishiFx5uTcpComm.csproj", "{3CE453B8-E56C-4E5B-9053-C99603C12658}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B811BA7F-D334-44E0-9935-3BD55C53A908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B811BA7F-D334-44E0-9935-3BD55C53A908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B811BA7F-D334-44E0-9935-3BD55C53A908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B811BA7F-D334-44E0-9935-3BD55C53A908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CE453B8-E56C-4E5B-9053-C99603C12658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CE453B8-E56C-4E5B-9053-C99603C12658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CE453B8-E56C-4E5B-9053-C99603C12658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CE453B8-E56C-4E5B-9053-C99603C12658}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {55CA4310-5C92-4887-9A9F-7EA2BB232A04}
+	EndGlobalSection
+EndGlobal
