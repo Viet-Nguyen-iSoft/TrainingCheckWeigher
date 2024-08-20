@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B811BA7F-D334-44E0-9935-3BD55C53A908}</ProjectGuid>
+    <ProjectGuid>{324F73BB-FD25-4956-8509-D635023907DF}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>TestPLC</RootNamespace>
-    <AssemblyName>TestPLC</AssemblyName>
+    <RootNamespace>ModbusTcpClientTester</RootNamespace>
+    <AssemblyName>ModbusTcpClientTester</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -52,14 +52,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="modbusTcp.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="slmp.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -86,9 +80,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Fx5uTcpComm\MitsubishiFx5uTcpComm.csproj">
-      <Project>{3ce453b8-e56c-4e5b-9053-c99603c12658}</Project>
-      <Name>MitsubishiFx5uTcpComm</Name>
+    <ProjectReference Include="..\CommonClassLibs\CommonClassLibs.csproj">
+      <Project>{982abbfd-9569-4725-aead-5bb75dc18a7d}</Project>
+      <Name>CommonClassLibs</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ListView\GlacialList.csproj">
+      <Project>{bf45e961-c4a7-4634-8c9c-702aa94b009a}</Project>
+      <Name>GlacialList</Name>
     </ProjectReference>
     <ProjectReference Include="..\ModbusTcpClient\ModbusTcpClient.csproj">
       <Project>{926b1dfc-9e19-4639-be67-6ff54a2cac64}</Project>

@@ -8,79 +8,63 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static TcpComm.TcpCommUC;
-
+using ModbusTcpClient;
 namespace TestPLC
 {
   public partial class Form1 : Form
   {
-    private Block _curBlock = Block.Block_start;
+    const string IP = "192.168.3.124";
+    private const int startAddress = 1000;
+    private const int numberOfWords = 50;
+
+    private Block _curBlock_Slmp = Block.Block_start;
+    private Block _curBlock_modbusTcp = Block.Block_start;
     public Form1()
     {
       InitializeComponent();
       this.Load += Form1_Load;
+      this.FormClosing += Form1_FormClosing;
       //đăng ký nhận event
-      tcpCommUC1.OnNotifyStatus += TcpCommUC1_OnNotifyStatus;
-      tcpCommUC1.OnReadDeviceData += TcpCommUC1_OnReadDeviceData;
+      slmpCommUC1.OnNotifyStatus += TcpCommUC1_OnNotifyStatus;
+      slmpCommUC1.OnReadDeviceData += TcpCommUC1_OnReadDeviceData;
+      //
+      this.modbusTcp1.OnNotifyStatus += ModbusTcp1_OnNotifyStatus;
+      this.modbusTcp1.OnReadDeviceData += ModbusTcp1_OnReadDeviceData; ;
+      this.modbusTcp1.OnReadData += ModbusTcp1_OnReadData;
     }
 
-    private void TcpCommUC1_OnReadDeviceData(object ent, int index, List<TcpComm.FX_DATA> list_data, bool IsCorrectChecksum)
+    private void Form1_FormClosing(object sender, FormClosingEventArgs e)
     {
-      int start_address = 1000 + ((int)(_curBlock) * 50);
-      //------1. Process data
-
-      //---2. Next cycle, next boxk
-      if (_curBlock == Block.Block_start)
-      {        
-        _curBlock = Block.Block_1;
-      }
-      else if (_curBlock == Block.Block_1)
-      {
-       _curBlock = Block.Block_2;
-      }
-      else if (_curBlock == Block.Block_2)
-      {
-        _curBlock = Block.Block_end;
-      }
-      else if (_curBlock == Block.Block_end)
-      {
-        _curBlock = Block.Block_start;
-      }
-      //send
-      this.tcpCommUC1.Read_DeviceMemory($"D{start_address}", 50, TcpComm.PROTOCOL_UNIT._x1_WORD);
-    }
-
-    private void TcpCommUC1_OnReadData(object ent, byte[] data_from_plc, bool IsMessageIdOK, bool IsCorrectCRC)
-    {
-      throw new NotImplementedException();
-    }
-
-    private void TcpCommUC1_OnNotifyStatus(object ent, TcpComm.STATUS status)
-    {
-      if ((status == TcpComm.STATUS.OK) ||
-         (status == TcpComm.STATUS.INIT_OK) ||
-        (status == TcpComm.STATUS.READ_DATA_OK) ||
-        (status == TcpComm.STATUS.WRITE_DATA_OK))
-      {
-        this.panel_status.BackColor = Color.Green;
-      }
-      else
-      {
-        this.panel_status.BackColor = Color.Red;
-      }
+      this.modbusTcp1.DeInit();
+      this.slmpCommUC1.DeInit();
     }
 
     private void Form1_Load(object sender, EventArgs e)
     {
-      this.tcpCommUC1.Init("192.168.3.124", 5000, TcpComm.ETHERNET_PROTOCOL.SLMP_BINARY_CODES);
+      this.slmpCommUC1.Init(IP, 5000, TcpComm.ETHERNET_PROTOCOL.SLMP_BINARY_CODES);
+
+      //---- MobusTcp init
+      this.modbusTcp1.SetStartAddressReadCyclic(startAddress, numberOfWords);
+      this.modbusTcp1.StopCyclic();
+      this.modbusTcp1.Init(1, 0, IP, "502", eSupportPlc.Fx5U);
+     
+
     }
 
     private void btTestRead_Click(object sender, EventArgs e)
     {
-      if (this.tcpCommUC1.IsEthConnected)
+      if (this.slmpCommUC1.IsEthConnected)
       {
-        _curBlock = Block.Block_start;
-        int start_address = 1000 + ((int)(_curBlock) * 50);
-        this.tcpCommUC1.Read_DeviceMemory($"D{start_address}", 50, TcpComm.PROTOCOL_UNIT._x1_WORD);
+        _curBlock_Slmp = Block.Block_start;
+        int start_address = 1000 + ((int)(_curBlock_Slmp) * 50);
+        this.slmpCommUC1.Read_DeviceMemory($"D{start_address}", 50, TcpComm.PROTOCOL_UNIT._x1_WORD);
+      }
+      //---------------
+      if (this.modbusTcp1.IsEthConnected)
+      {
+        this._curBlock_modbusTcp = Block.Block_start;
+        int start_address = 1000 + ((int)(_curBlock_Slmp) * numberOfWords);
+        this.modbusTcp1.ReadHoldingRegister(start_address, numberOfWords);
       }
     }
 
@@ -91,6 +75,11 @@ namespace TestPLC
       Block_1 = 1,
       Block_2,
       Block_end,
+    }
+
+    private void button1_Click(object sender, EventArgs e)
+    {
+      
     }
   }
 }

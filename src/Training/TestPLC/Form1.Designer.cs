@@ -29,25 +29,62 @@
     private void InitializeComponent()
     {
       this.panel_Header = new System.Windows.Forms.Panel();
+      this.modbusTcp1 = new ModbusTcpClient.ModbusTcp();
+      this.btTestRead = new System.Windows.Forms.Button();
+      this.panel_status = new System.Windows.Forms.Panel();
+      this.slmpCommUC1 = new TcpComm.TcpCommUC();
       this.panel_Footer = new System.Windows.Forms.Panel();
       this.panel_body = new System.Windows.Forms.Panel();
-      this.tcpCommUC1 = new TcpComm.TcpCommUC();
-      this.panel_status = new System.Windows.Forms.Panel();
-      this.btTestRead = new System.Windows.Forms.Button();
       this.panel_Header.SuspendLayout();
       this.SuspendLayout();
       // 
       // panel_Header
       // 
       this.panel_Header.BackColor = System.Drawing.SystemColors.ActiveCaption;
+      this.panel_Header.Controls.Add(this.modbusTcp1);
       this.panel_Header.Controls.Add(this.btTestRead);
       this.panel_Header.Controls.Add(this.panel_status);
-      this.panel_Header.Controls.Add(this.tcpCommUC1);
+      this.panel_Header.Controls.Add(this.slmpCommUC1);
       this.panel_Header.Dock = System.Windows.Forms.DockStyle.Top;
       this.panel_Header.Location = new System.Drawing.Point(0, 0);
       this.panel_Header.Name = "panel_Header";
-      this.panel_Header.Size = new System.Drawing.Size(1134, 71);
+      this.panel_Header.Size = new System.Drawing.Size(1134, 123);
       this.panel_Header.TabIndex = 0;
+      // 
+      // modbusTcp1
+      // 
+      this.modbusTcp1.Location = new System.Drawing.Point(129, 12);
+      this.modbusTcp1.Name = "modbusTcp1";
+      this.modbusTcp1.Size = new System.Drawing.Size(263, 38);
+      this.modbusTcp1.TabIndex = 3;
+      // 
+      // btTestRead
+      // 
+      this.btTestRead.Location = new System.Drawing.Point(12, 56);
+      this.btTestRead.Name = "btTestRead";
+      this.btTestRead.Size = new System.Drawing.Size(95, 41);
+      this.btTestRead.TabIndex = 2;
+      this.btTestRead.Text = "Test Read data";
+      this.btTestRead.UseVisualStyleBackColor = true;
+      this.btTestRead.Click += new System.EventHandler(this.btTestRead_Click);
+      // 
+      // panel_status
+      // 
+      this.panel_status.BackColor = System.Drawing.Color.Green;
+      this.panel_status.Location = new System.Drawing.Point(23, 34);
+      this.panel_status.Name = "panel_status";
+      this.panel_status.Size = new System.Drawing.Size(31, 16);
+      this.panel_status.TabIndex = 1;
+      // 
+      // slmpCommUC1
+      // 
+      this.slmpCommUC1.Index = 1;
+      this.slmpCommUC1.IPAddress = "192.168.3.124";
+      this.slmpCommUC1.Location = new System.Drawing.Point(24, 4);
+      this.slmpCommUC1.Name = "slmpCommUC1";
+      this.slmpCommUC1.Port = ((ushort)(2000));
+      this.slmpCommUC1.Size = new System.Drawing.Size(32, 32);
+      this.slmpCommUC1.TabIndex = 0;
       // 
       // panel_Footer
       // 
@@ -61,38 +98,10 @@
       // panel_body
       // 
       this.panel_body.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.panel_body.Location = new System.Drawing.Point(0, 71);
+      this.panel_body.Location = new System.Drawing.Point(0, 123);
       this.panel_body.Name = "panel_body";
-      this.panel_body.Size = new System.Drawing.Size(1134, 653);
+      this.panel_body.Size = new System.Drawing.Size(1134, 601);
       this.panel_body.TabIndex = 2;
-      // 
-      // tcpCommUC1
-      // 
-      this.tcpCommUC1.Index = 1;
-      this.tcpCommUC1.IPAddress = "192.168.3.124";
-      this.tcpCommUC1.Location = new System.Drawing.Point(24, 4);
-      this.tcpCommUC1.Name = "tcpCommUC1";
-      this.tcpCommUC1.Port = ((ushort)(2000));
-      this.tcpCommUC1.Size = new System.Drawing.Size(32, 32);
-      this.tcpCommUC1.TabIndex = 0;
-      // 
-      // panel_status
-      // 
-      this.panel_status.BackColor = System.Drawing.Color.Green;
-      this.panel_status.Location = new System.Drawing.Point(23, 34);
-      this.panel_status.Name = "panel_status";
-      this.panel_status.Size = new System.Drawing.Size(31, 16);
-      this.panel_status.TabIndex = 1;
-      // 
-      // btTestRead
-      // 
-      this.btTestRead.Location = new System.Drawing.Point(77, 4);
-      this.btTestRead.Name = "btTestRead";
-      this.btTestRead.Size = new System.Drawing.Size(95, 41);
-      this.btTestRead.TabIndex = 2;
-      this.btTestRead.Text = "Test Read";
-      this.btTestRead.UseVisualStyleBackColor = true;
-      this.btTestRead.Click += new System.EventHandler(this.btTestRead_Click);
       // 
       // Form1
       // 
@@ -115,8 +124,9 @@
     private System.Windows.Forms.Panel panel_Footer;
     private System.Windows.Forms.Panel panel_body;
     private System.Windows.Forms.Panel panel_status;
-    private TcpComm.TcpCommUC tcpCommUC1;
+    private TcpComm.TcpCommUC slmpCommUC1;
     private System.Windows.Forms.Button btTestRead;
+    private ModbusTcpClient.ModbusTcp modbusTcp1;
   }
 }
 
