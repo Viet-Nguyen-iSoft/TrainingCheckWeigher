@@ -35,12 +35,14 @@
       this.slmpCommUC1 = new TcpComm.TcpCommUC();
       this.panel_Footer = new System.Windows.Forms.Panel();
       this.panel_body = new System.Windows.Forms.Panel();
+      this.btWriteResetCounter = new System.Windows.Forms.Button();
       this.panel_Header.SuspendLayout();
       this.SuspendLayout();
       // 
       // panel_Header
       // 
       this.panel_Header.BackColor = System.Drawing.SystemColors.ActiveCaption;
+      this.panel_Header.Controls.Add(this.btWriteResetCounter);
       this.panel_Header.Controls.Add(this.modbusTcp1);
       this.panel_Header.Controls.Add(this.btTestRead);
       this.panel_Header.Controls.Add(this.panel_status);
@@ -103,6 +105,16 @@
       this.panel_body.Size = new System.Drawing.Size(1134, 601);
       this.panel_body.TabIndex = 2;
       // 
+      // btWriteResetCounter
+      // 
+      this.btWriteResetCounter.Location = new System.Drawing.Point(129, 56);
+      this.btWriteResetCounter.Name = "btWriteResetCounter";
+      this.btWriteResetCounter.Size = new System.Drawing.Size(168, 41);
+      this.btWriteResetCounter.TabIndex = 4;
+      this.btWriteResetCounter.Text = "Test Write reset counter";
+      this.btWriteResetCounter.UseVisualStyleBackColor = true;
+      this.btWriteResetCounter.Click += new System.EventHandler(this.btWriteResetCounter_Click);
+      // 
       // Form1
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -127,6 +139,7 @@
     private TcpComm.TcpCommUC slmpCommUC1;
     private System.Windows.Forms.Button btTestRead;
     private ModbusTcpClient.ModbusTcp modbusTcp1;
+    private System.Windows.Forms.Button btWriteResetCounter;
   }
 }
 

@@ -19,6 +19,32 @@ namespace TestPLC
 
     private Block _curBlock_Slmp = Block.Block_start;
     private Block _curBlock_modbusTcp = Block.Block_start;
+    //---- Khai báo 1 list các lệnh cần write data
+    private int MaxBufferDataToWrite = 30;
+    private List<WriteRequest> list_WriteRequests = new List<WriteRequest>();
+  
+    private class WriteRequest
+    {
+      public int Id = 0;
+      public eWriteRequest eWriteRequest = eWriteRequest.Donothing;
+      public int[] dataToWrite = null;
+      public WriteRequest(int id)
+      {
+        this.Id = id;
+        this.eWriteRequest = eWriteRequest.Donothing;
+      }
+    }
+
+
+    private enum eWriteRequest
+    {
+      Donothing = 0,
+      ResetCounter,
+      AssignLoss,
+      Do_action_1,
+      Do_action_2,
+      Do_action_3,
+    }
     public Form1()
     {
       InitializeComponent();
@@ -31,6 +57,13 @@ namespace TestPLC
       this.modbusTcp1.OnNotifyStatus += ModbusTcp1_OnNotifyStatus;
       this.modbusTcp1.OnReadDeviceData += ModbusTcp1_OnReadDeviceData; ;
       this.modbusTcp1.OnReadData += ModbusTcp1_OnReadData;
+
+
+      //Tạo số lượng request-write
+      for (int i = 0; i < MaxBufferDataToWrite; i++)
+      {
+        list_WriteRequests.Add(new WriteRequest(i));
+      }
     }
 
     private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -80,6 +113,20 @@ namespace TestPLC
     private void button1_Click(object sender, EventArgs e)
     {
       
+    }
+
+    private void btWriteResetCounter_Click(object sender, EventArgs e)
+    {
+      //Tìm buffer còn trống
+      bool is_exit = false;
+      for (int i = 0; i < list_WriteRequests.Count && (is_exit == false); i++)
+      {
+        if (list_WriteRequests[i].eWriteRequest == eWriteRequest.Donothing)
+        {
+          is_exit = true;
+          list_WriteRequests[i].eWriteRequest = eWriteRequest.ResetCounter;
+        }
+      }
     }
   }
 }
